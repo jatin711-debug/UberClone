@@ -3,6 +3,7 @@ const dotenv = require("dotenv");
 const connectDB = require("./config/database");
 const { connectConsumer } = require("./kafka/consumer");
 const handleUserEvents = require("./kafka/handlers/userEventsHandler");
+const { USER_REGISTERED } = require("./kafka/topics");
 // Load environment variables
 dotenv.config();
 
@@ -14,7 +15,7 @@ app.use(express.json());
 connectDB();
 
 (async () => {
-    await connectConsumer("USER_REGISTERED", handleUserEvents);
+    await connectConsumer(USER_REGISTERED, handleUserEvents);
 })();
 
 // Import Routes
@@ -24,7 +25,11 @@ const authRoutes = require("./routes/authRoutes");
 app.use("/api/auth", authRoutes);
 
 // Global Error Handler
-app.use(require("./middlewares/errorMiddleware"));
+app.use((err, req, res, next) => {
+    console.error(err);
+    res.status(500).send("Something went wrong!");
+});
+
 
 // Start Server
 const PORT = process.env.PORT || 5000;
