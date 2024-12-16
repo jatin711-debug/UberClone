@@ -1,6 +1,8 @@
+version: '3.8'
+
 services:
   auth-service:
-    build: .
+    build: ./auth-service
     ports:
       - "5000:5000"
     environment:
@@ -12,12 +14,27 @@ services:
       - kafka
     networks:
       - app_network
+
+  ride-matching-service:
+    build: ./ride-matching-service
+    ports:
+      - "5001:5001"
+    environment:
+      - MONGO_URI=mongodb://mongo:27017/ride-matching-service
+      - KAFKA_BROKER_URL=kafka:9092
+    depends_on:
+      - mongo
+      - kafka
+    networks:
+      - app_network
+
   mongo:
     image: mongo:5
     ports:
       - "27017:27017"
     networks:
       - app_network
+
   kafka:
     image: bitnami/kafka:latest
     container_name: kafka

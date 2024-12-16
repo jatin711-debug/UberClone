@@ -18,7 +18,7 @@ COPY --from=build /app /app
 
 RUN npm prune --production
 
-EXPOSE 5000
+EXPOSE 5001
 
 ENV NODE_ENV=production
 ENV MONGO_URI=mongodb://mongo:27017/uberclone
