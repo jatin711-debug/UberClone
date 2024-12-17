@@ -25,4 +25,4 @@ const kafkaConsumer = async () => {
     });
 };
 
-export default kafkaConsumer;
+module.exports = kafkaConsumer;

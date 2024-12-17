@@ -29,4 +29,4 @@ const rideRequestHandler = async (message) => {
     }
 };
 
-export default rideRequestHandler;
+module.exports = rideRequestHandler;

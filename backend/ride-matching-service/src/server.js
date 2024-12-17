@@ -1,14 +1,13 @@
 const express = require('express');
 const dotenv = require('dotenv');
 const bodyParser = require('body-parser');
-const logger = require('./config/logger.js');
+const logger = require('./utils/logger.js');
 const connectDB = require('./config/db.js');
 const kafkaConsumer = require('./kafka/consumer.js');
 const kafkaProducer = require('./kafka/producer.js');
 const matchRoutes = require('./routes/matchRoutes.js');
 const rideRoutes = require('./routes/rideRoutes.js');
 
-// Load environment variables
 dotenv.config();
 
 // Initialize Express app
@@ -28,7 +27,7 @@ connectDB().then(() => logger.info('Database connected successfully'));
 
 // Initialize Kafka
 kafkaConsumer();
-kafkaProducer();
+kafkaProducer.kafkaProducer();
 
 // Start server
 app.listen(PORT, () => {

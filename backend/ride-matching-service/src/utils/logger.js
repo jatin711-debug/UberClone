@@ -1,5 +1,5 @@
-const { createLogger, format, transports } = require('winston');
-
+const winston = require('winston');
+const { createLogger, format, transports } = winston;
 const logger = createLogger({
     level: 'info',
     format: format.combine(
@@ -12,4 +12,4 @@ const logger = createLogger({
     ],
 });
 
-export default logger;
+module.exports = logger;

@@ -15,7 +15,7 @@ const kafkaProducer = async () => {
     logger.info('Kafka Producer connected');
 };
 
-export const sendMessage = async (topic, message) => {
+const sendMessage = async (topic, message) => {
     try {
         await producer.send({
             topic,
@@ -27,4 +27,4 @@ export const sendMessage = async (topic, message) => {
     }
 };
 
-export default kafkaProducer;
+module.exports = { kafkaProducer, sendMessage };
